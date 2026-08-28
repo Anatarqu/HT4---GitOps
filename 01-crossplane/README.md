@@ -85,13 +85,13 @@ El provider-postgresql necesita conectarse a una instancia de PostgreSQL para cr
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
-helm install postgresql bitnami/postgresql \
-  --namespace postgresql \
-  --create-namespace \
-  --set auth.postgresPassword=platform123 \
-  --set auth.username=platform \
-  --set auth.password=platform123 \
-  --set auth.database=platformdb \
+helm install postgresql bitnami/postgresql `
+  --namespace postgresql `
+  --create-namespace `
+  --set auth.postgresPassword=platform123 `
+  --set auth.username=platform `
+  --set auth.password=platform123 `
+  --set auth.database=platformdb `
   --wait
 
 # Verificar que PostgreSQL está corriendo

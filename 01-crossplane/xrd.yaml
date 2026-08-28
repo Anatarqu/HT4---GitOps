@@ -1,31 +1,48 @@
 # =====================================================================
 # Crossplane XRD — CompositeResourceDefinition
 # =====================================================================
-# TODO 2: Completa este archivo con tu XRD
-#
-# Guía de referencia:
-#   https://docs.crossplane.io/latest/concepts/composite-resource-definitions/
-#
-# Este XRD debe:
-#   - Definir un Composite Resource llamado XPostgreSQLInstance
-#   - Exponer al menos 2 parámetros (ej: dbName, owner)
-#   - Usar el grupo database.poc.io/v1alpha1
+# Definición del esquema para el plano de control interno.
 # =====================================================================
 
-# apiVersion: apiextensions.crossplane.io/v1
-# kind: CompositeResourceDefinition
-# metadata:
-#   name: ...
-#   annotations:
-#     argocd.argoproj.io/sync-wave: "1"
-# spec:
-#   group: ...
-#   names:
-#     kind: ...
-#   versions:
-#     - name: v1alpha1
-#       served: true
-#       referenceable: true
-#       schema:
-#         openAPIV3Schema:
-#           ...
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  # El nombre de un XRD debe seguir estrictamente el formato: <plural>.<group>
+  name: xpostgresqlinstances.database.poc.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  # Grupo de API personalizado solicitado
+  group: database.poc.io
+  names:
+    # Kind utilizado para el Composite Resource (XR)
+    kind: XPostgreSQLInstance
+    plural: xpostgresqlinstances
+  claimNames:
+    # Kind utilizado por los desarrolladores en sus namespaces (Claim)
+    kind: PostgreSQLInstance
+    plural: postgresqlinstances
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            # Los desarrolladores configuran sus parámetros dentro del bloque spec
+            spec:
+              type: object
+              required:
+                - dbName
+                - owner
+              properties:
+                dbName:
+                  type: string
+                  description: Nombre de la base de datos lógica que se creará en el motor PostgreSQL.
+                  minLength: 3
+                  maxLength: 63
+                owner:
+                  type: string
+                  description: Nombre del rol de usuario que será dueño y administrador de esta base de datos.
+                  default: postgres

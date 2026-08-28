@@ -2,33 +2,44 @@
 # Crossplane Composition
 # =====================================================================
 
-# apiVersion: apiextensions.crossplane.io/v1
-# kind: Composition
-# metadata:
-#   name: postgresql-composition
-# spec:
-#   compositeTypeRef:
-#     apiVersion: ????
-#     kind: ???
-#     mode: Pipeline
-#   pipeline:
-#   - step: patch-and-transform
-#     functionRef:
-#       name: function-patch-and-transform
-#     input:
-#       apiVersion: pt.fn.crossplane.io/v1beta1
-#       kind: Resources
-#       resources:
-#       - name: postgresql-database
-#         base:
-#           apiVersion: ...
-#           kind: Database
-#           spec:
-#             forProvider:
-#             ...
-#           providerConfigRef:
-#             name: postgresql-config
-#         patches:
-#           - type: FromCompositeFieldPath
-#             fromFieldPath: "spec.parameters.???"
-#             toFieldPath: "spec.forProvider.???"
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: postgresql-composition
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  # Referencia exacta al XRD creado en el paso anterior
+  compositeTypeRef:
+    apiVersion: database.poc.io/v1alpha1
+    kind: XPostgreSQLInstance
+  
+  # Modo de ejecución basado en el pipeline de funciones modernas
+  mode: Pipeline
+  pipeline:
+  - step: patch-and-transform
+    functionRef:
+      name: function-patch-and-transform
+    input:
+      apiVersion: pt.fn.crossplane.io/v1beta1
+      kind: Resources
+      resources:
+      - name: postgresql-database
+        base:
+          # Managed Resource del proveedor tages/provider-postgresql de Upbound
+          apiVersion: postgresql.upbound.io/v1beta1
+          kind: Database
+          spec:
+            forProvider:
+              # Inicialización explícita requerida por el validador OpenAPI
+              name: "placeholder"
+            providerConfigRef:
+              # Vinculación obligatoria con tu configuración de credenciales
+              name: postgresql-config
+        patches:
+          # Parche para transferir dinámicamente el parámetro dbName del desarrollador
+          - type: FromCompositeFieldPath
+            fromFieldPath: "spec.dbName"
+            toFieldPath: "spec.forProvider.name"
+            policy:
+              fromFieldPath: Required
