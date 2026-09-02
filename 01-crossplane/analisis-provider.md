@@ -1,17 +1,3 @@
-# =====================================================================
-# An√°lisis del Provider PostgreSQL
-# =====================================================================
+### 3. InformaciÛn requerida por el ProviderConfig
 
-## Provider: tages/provider-postgresql v0.1.0
-
-### 1. Managed Resources disponibles
-
-<!-- Este proveedor cuenta con 17 Managed Resources. Los principales y m√°s utilizados para administrar el ciclo de vida dentro de una instancia de PostgreSQL: Database, Extensiom, Function, Grant, Mapping, Privileges, ProviderConfig, ProviderConfigUsage, Publication, ReplicationSlot, Role, Shcema, Server, Slot, StoreConfig, Subscription-->
-
-### 2. Campos requeridos del recurso Database
-
-<!--Campos requeridos (name) y campos opcionales (owner, lc Caollate, lcCtype, tablespaceName, template)-->
-
-### 3. Informaci√≥n requerida por el ProviderConfig
-
-<!-- el ProviderConfig act√∫a exclusivamente como un apuntador hacia un Secret de Kubernetes, requiere una referencia a un Secreto apuntando a una llave espec√≠fica donde se almacena un bloque de texto plano con la configuraci√≥n del motor. Necesita host, port, user, password, sslmode  -->
+<!-- el ProviderConfig act˙a exclusivamente como un apuntador hacia un Secret de Kubernetes, requiere una referencia a un Secreto apuntando a una llave especÌfica donde se almacena un bloque de texto plano con la configuraciÛn del motor. Necesita host, port, user, password, sslmode -->
