@@ -77,6 +77,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret \
 ```
 
 Guarda esta contraseña — la necesitarás para el login.
+2FpRU4srKYX4eg7F
 
 ### Paso 3: Acceder a la UI
 
