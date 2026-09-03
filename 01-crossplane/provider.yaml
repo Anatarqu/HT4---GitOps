@@ -1,24 +1,20 @@
+@'
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
   name: provider-postgresql
 spec:
-<<<<<<< HEAD
-  # Se utiliza la imagen oficial del proveedor de PostgreSQL de Upbound
   package: xpkg.upbound.io/upbound/provider-postgresql:v0.5.0
 ---
 apiVersion: postgresql.upbound.io/v1beta1
 kind: ProviderConfig
 metadata:
-  name: default
+  name: postgresql-config
 spec:
-  # Aquí especificas cómo se conecta Crossplane a tu servidor PostgreSQL real
   credentials:
     source: Secret
     secretRef:
       namespace: default
-      name: postgresql-creds # El secreto con el host, usuario y password
+      name: postgresql-creds
       key: credentials
-=======
-  package: xpkg.upbound.io/crossplane-contrib/provider-postgresql:v0.5.0
->>>>>>> c7a2865 (Desarrollo)
+'@ | Set-Content .\01-crossplane\provider.yaml -Encoding UTF8

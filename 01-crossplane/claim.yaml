@@ -13,7 +13,6 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "3"
 spec:
-  # Valores para los parámetros definidos en el esquema OpenAPI de tu XRD
   dbName: ecommercedb
   owner: app_developer
-'@ | Set-Content .\01-crossplane\claim.yaml
+'@ | Set-Content .\01-crossplane\claim.yaml -Encoding UTF8

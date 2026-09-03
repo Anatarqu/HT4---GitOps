@@ -1,48 +1,27 @@
+#@'
 # =====================================================================
 # Crossplane XRD — CompositeResourceDefinition
 # =====================================================================
-<<<<<<< HEAD
-# Definición del esquema para el plano de control interno.
-=======
 # Realizado: XRD para aprovisionamiento de PostgreSQL
-#
-# Guía de referencia:
-#   https://docs.crossplane.io/latest/concepts/composite-resource-definitions/
 #
 # Este XRD define:
 #   - Un Composite Resource llamado XPostgreSQLInstance
 #   - Parámetros configurables: dbName y owner
 #   - El grupo database.poc.io y la versión v1alpha1
->>>>>>> c7a2865 (Desarrollo)
 # =====================================================================
 
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
-<<<<<<< HEAD
-  # El nombre de un XRD debe seguir estrictamente el formato: <plural>.<group>
-=======
->>>>>>> c7a2865 (Desarrollo)
   name: xpostgresqlinstances.database.poc.io
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
-<<<<<<< HEAD
-  # Grupo de API personalizado solicitado
-  group: database.poc.io
-  names:
-    # Kind utilizado para el Composite Resource (XR)
-    kind: XPostgreSQLInstance
-    plural: xpostgresqlinstances
-  claimNames:
-    # Kind utilizado por los desarrolladores en sus namespaces (Claim)
-=======
   group: database.poc.io
   names:
     kind: XPostgreSQLInstance
     plural: xpostgresqlinstances
   claimNames:
->>>>>>> c7a2865 (Desarrollo)
     kind: PostgreSQLInstance
     plural: postgresqlinstances
   versions:
@@ -53,8 +32,6 @@ spec:
         openAPIV3Schema:
           type: object
           properties:
-<<<<<<< HEAD
-            # Los desarrolladores configuran sus parámetros dentro del bloque spec
             spec:
               type: object
               required:
@@ -63,27 +40,11 @@ spec:
               properties:
                 dbName:
                   type: string
-                  description: Nombre de la base de datos lógica que se creará en el motor PostgreSQL.
+                  description: Nombre de la base de datos PostgreSQL que se creará de forma dinámica.
                   minLength: 3
                   maxLength: 63
                 owner:
                   type: string
-                  description: Nombre del rol de usuario que será dueño y administrador de esta base de datos.
+                  description: Nombre del usuario o rol propietario de la base de datos.
                   default: postgres
-=======
-            spec:
-              type: object
-              properties:
-                parameters:
-                  type: object
-                  required:
-                    - dbName
-                    - owner
-                  properties:
-                    dbName:
-                      type: string
-                      description: Nombre de la base de datos PostgreSQL que se creará de forma dinámica.
-                    owner:
-                      type: string
-                      description: Nombre del usuario/rol que será propietario de la base de datos.
->>>>>>> c7a2865 (Desarrollo)
+'@ | Set-Content .\01-crossplane\xrd.yaml -Encoding UTF8
