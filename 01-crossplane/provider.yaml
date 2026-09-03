@@ -3,6 +3,7 @@ kind: Provider
 metadata:
   name: provider-postgresql
 spec:
+<<<<<<< HEAD
   # Se utiliza la imagen oficial del proveedor de PostgreSQL de Upbound
   package: xpkg.upbound.io/upbound/provider-postgresql:v0.5.0
 ---
@@ -18,3 +19,6 @@ spec:
       namespace: default
       name: postgresql-creds # El secreto con el host, usuario y password
       key: credentials
+=======
+  package: xpkg.upbound.io/crossplane-contrib/provider-postgresql:v0.5.0
+>>>>>>> c7a2865 (Desarrollo)

@@ -1,11 +1,17 @@
 # =====================================================================
 # Crossplane Composition
 # =====================================================================
+# Realizado: Composición para instanciar bases de datos PostgreSQL
+#
+# Guía de referencia:
+#   https://docs.crossplane.io/latest/concepts/compositions/
+# =====================================================================
 
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
   name: postgresql-composition
+<<<<<<< HEAD
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 spec:
@@ -43,3 +49,45 @@ spec:
             toFieldPath: "spec.forProvider.name"
             policy:
               fromFieldPath: Required
+=======
+  labels:
+    # Vincula esta composición al XRD mediante la API correspondiente
+    crossplane.io/xrd: xpostgresqlinstances.database.poc.io
+spec:
+  compositeTypeRef:
+    apiVersion: database.poc.io/v1alpha1
+    kind: XPostgreSQLInstance
+  mode: Pipeline
+  pipeline:
+    - step: patch-and-transform
+      functionRef:
+        name: function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+        resources:
+          - name: postgresql-database
+            base:
+              apiVersion: postgresql.postgresql.crossplane.io/v1alpha1
+              kind: Database
+              spec:
+                forProvider:
+                  # Valores por defecto requeridos por el esquema del Managed Resource
+                  owner: ""
+                providerConfigRef:
+                  name: postgresql-config
+            patches:
+              # Patch 1: Pasa el nombre de la base de datos configurada por el dev
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.dbName
+                toFieldPath: spec.forProvider.database
+                policy:
+                  fromFieldPath: Required
+
+              # Patch 2: Pasa el propietario de la base de datos configurada por el dev
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.parameters.owner
+                toFieldPath: spec.forProvider.owner
+                policy:
+                  fromFieldPath: Required
+>>>>>>> c7a2865 (Desarrollo)
