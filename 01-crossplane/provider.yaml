@@ -1,4 +1,8 @@
 @'
+# =====================================================================
+# Crossplane Provider — PostgreSQL
+# =====================================================================
+
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
@@ -17,4 +21,4 @@ spec:
       namespace: default
       name: postgresql-creds
       key: credentials
-'@ | Set-Content .\01-crossplane\provider.yaml -Encoding UTF8
+'@ | Set-Content .\01-crossplane\provider.yaml -Encoding utf8

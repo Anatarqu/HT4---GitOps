@@ -2,8 +2,6 @@
 # =====================================================================
 # Crossplane Claim — PostgreSQLInstance
 # =====================================================================
-# Realizado: Instancia simplificada para el equipo de desarrollo
-# =====================================================================
 
 apiVersion: database.poc.io/v1alpha1
 kind: PostgreSQLInstance
@@ -15,4 +13,4 @@ metadata:
 spec:
   dbName: ecommercedb
   owner: app_developer
-'@ | Set-Content .\01-crossplane\claim.yaml -Encoding UTF8
+'@ | Set-Content .\01-crossplane\claim.yaml -Encoding utf8

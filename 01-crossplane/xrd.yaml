@@ -1,13 +1,6 @@
-#@'
+@'
 # =====================================================================
 # Crossplane XRD — CompositeResourceDefinition
-# =====================================================================
-# Realizado: XRD para aprovisionamiento de PostgreSQL
-#
-# Este XRD define:
-#   - Un Composite Resource llamado XPostgreSQLInstance
-#   - Parámetros configurables: dbName y owner
-#   - El grupo database.poc.io y la versión v1alpha1
 # =====================================================================
 
 apiVersion: apiextensions.crossplane.io/v1
@@ -40,11 +33,11 @@ spec:
               properties:
                 dbName:
                   type: string
-                  description: Nombre de la base de datos PostgreSQL que se creará de forma dinámica.
+                  description: Nombre de la base de datos PostgreSQL.
                   minLength: 3
                   maxLength: 63
                 owner:
                   type: string
-                  description: Nombre del usuario o rol propietario de la base de datos.
+                  description: Usuario o rol propietario de la base de datos.
                   default: postgres
-'@ | Set-Content .\01-crossplane\xrd.yaml -Encoding UTF8
+'@ | Set-Content .\01-crossplane\xrd.yaml -Encoding utf8
