@@ -5,6 +5,7 @@ metadata:
   namespace: default
   annotations:
     argocd.argoproj.io/sync-wave: "3"
+
 spec:
-  dbName: ecommercedb
+  dbName: ecommercedb-gitops
   owner: app_developer
