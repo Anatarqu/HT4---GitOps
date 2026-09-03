@@ -1,24 +1,6 @@
-@'
-# =====================================================================
-# Crossplane Provider — PostgreSQL
-# =====================================================================
-
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
-  name: provider-postgresql
+  name: provider-sql
 spec:
-  package: xpkg.upbound.io/upbound/provider-postgresql:v0.5.0
----
-apiVersion: postgresql.upbound.io/v1beta1
-kind: ProviderConfig
-metadata:
-  name: postgresql-config
-spec:
-  credentials:
-    source: Secret
-    secretRef:
-      namespace: default
-      name: postgresql-creds
-      key: credentials
-'@ | Set-Content .\01-crossplane\provider.yaml -Encoding utf8
+  package: xpkg.upbound.io/crossplane-contrib/provider-sql:v0.9.0

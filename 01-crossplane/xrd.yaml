@@ -1,8 +1,3 @@
-@'
-# =====================================================================
-# Crossplane XRD — CompositeResourceDefinition
-# =====================================================================
-
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
@@ -33,11 +28,8 @@ spec:
               properties:
                 dbName:
                   type: string
-                  description: Nombre de la base de datos PostgreSQL.
                   minLength: 3
                   maxLength: 63
                 owner:
                   type: string
-                  description: Usuario o rol propietario de la base de datos.
                   default: postgres
-'@ | Set-Content .\01-crossplane\xrd.yaml -Encoding utf8

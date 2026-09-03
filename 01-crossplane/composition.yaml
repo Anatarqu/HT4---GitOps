@@ -1,8 +1,3 @@
-﻿@'
-# =====================================================================
-# Crossplane Composition — PostgreSQL
-# =====================================================================
-
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
@@ -13,6 +8,7 @@ spec:
   compositeTypeRef:
     apiVersion: database.poc.io/v1alpha1
     kind: XPostgreSQLInstance
+
   mode: Pipeline
   pipeline:
     - step: patch-and-transform
@@ -24,17 +20,23 @@ spec:
         resources:
           - name: postgresql-database
             base:
-              apiVersion: postgresql.upbound.io/v1beta1
+              apiVersion: postgresql.sql.crossplane.io/v1alpha1
               kind: Database
               spec:
                 forProvider:
-                  name: placeholder
+                  name: "placeholder"
+                  owner: "postgres"
                 providerConfigRef:
                   name: postgresql-config
             patches:
               - type: FromCompositeFieldPath
-                fromFieldPath: spec.dbName
-                toFieldPath: spec.forProvider.name
+                fromFieldPath: "spec.dbName"
+                toFieldPath: "spec.forProvider.name"
                 policy:
                   fromFieldPath: Required
-'@ | Set-Content .\01-crossplane\composition.yaml -Encoding utf8
+
+              - type: FromCompositeFieldPath
+                fromFieldPath: "spec.owner"
+                toFieldPath: "spec.forProvider.owner"
+                policy:
+                  fromFieldPath: Required

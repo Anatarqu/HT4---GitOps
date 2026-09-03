@@ -1,13 +1,10 @@
-apiVersion: postgresql.upbound.io/v1beta1
+apiVersion: postgresql.sql.crossplane.io/v1alpha1
 kind: ProviderConfig
 metadata:
   name: postgresql-config
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
 spec:
   credentials:
-    source: Secret
-    secretRef:
-      namespace: crossplane-system
-      name: postgresql-credentials
-      key: connection
+    source: PostgreSQLConnectionSecret
+    connectionSecretRef:
+      name: postgresql-creds
+      namespace: default
